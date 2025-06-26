@@ -72,10 +72,6 @@ export class PokemonsService {
 
     const pokemon = await this.getPokemonInformation(id);
 
-    if (!pokemon) {
-      throw new NotFoundException(`Not found register with id ${id}`);
-    }
-
     this.pokemonsCache.set(pokemon.id, pokemon);
 
     return pokemon;

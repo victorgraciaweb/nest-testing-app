@@ -97,15 +97,28 @@ describe('PokemonsController', () => {
   });
 
   it('Should have called update service with correct ID and data', async () => {
-    const id = '4';
+    const id = '2';
     const data: UpdatePokemonDto = { type: 'agua' };
 
-    jest.spyOn(service, 'update');
+    const pokemonMock: Pokemon = {
+      id: 2,
+      name: 'ivysaur',
+      type: 'grass',
+      hp: 60,
+      sprites: [
+        'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/2.png',
+        'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/2.png',
+      ],
+    };
+
+    jest
+      .spyOn(service, 'update')
+      .mockImplementation(() => Promise.resolve(pokemonMock));
 
     const pokemonUpdated = await controller.update(id, data);
 
     expect(service.update).toHaveBeenCalledWith(+id, data);
-    expect(pokemonUpdated).toEqual(`This action updates a #${id} pokemon`);
+    expect(pokemonUpdated).toEqual(pokemonMock);
   });
 
   it('Should have called delete service with correct ID', async () => {
@@ -116,6 +129,6 @@ describe('PokemonsController', () => {
     const pokemonRemoved = await controller.remove(id);
 
     expect(service.remove).toHaveBeenCalledWith(+id);
-    expect(pokemonRemoved).toBe(`This action removes a #${id} pokemon`);
+    expect(pokemonRemoved).toBe(`Pokemon removed`);
   });
 });

@@ -117,6 +117,17 @@ describe('PokemonsService', () => {
         }),
       );
     });
+
+    it('Should return pokemon cached', async () => {
+      const id = 3;
+      const pokemon = await service.findOne(id);
+
+      const spy = jest.spyOn(service as any, 'getPokemonInformation');
+
+      const pokemonCached = await service.findOne(id);
+      expect(pokemon).toBe(pokemonCached);
+      expect(spy).not.toHaveBeenCalled();
+    });
   });
 
   describe('update', () => {
