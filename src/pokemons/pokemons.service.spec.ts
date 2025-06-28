@@ -1,6 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { PokemonsService } from './pokemons.service';
 import { BadRequestException, NotFoundException } from '@nestjs/common';
+import { Pokemon } from './entities/pokemon.entity';
 
 describe('PokemonsService', () => {
   let service: PokemonsService;
@@ -168,5 +169,14 @@ describe('PokemonsService', () => {
     });
   });
 
-  describe('remove', () => {});
+  describe('remove', () => {
+    it('Should remove pokemon from cache', async () => {
+      const id = 35;
+
+      await service.findOne(id);
+      await service.remove(id);
+
+      expect(service.pokemonsCache.has(id)).toBe(false);
+    });
+  });
 });
