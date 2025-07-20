@@ -1,4 +1,3 @@
-import { ValidationPipe } from '@nestjs/common';
 import { AppModule } from './app.module';
 import { bootstrap } from './main';
 import { NestFactory } from '@nestjs/core';

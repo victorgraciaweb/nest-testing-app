@@ -1,7 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { PokemonsService } from './pokemons.service';
 import { BadRequestException, NotFoundException } from '@nestjs/common';
-import { Pokemon } from './entities/pokemon.entity';
 
 describe('PokemonsService', () => {
   let service: PokemonsService;
